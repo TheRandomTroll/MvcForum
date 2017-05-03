@@ -23,5 +23,9 @@ namespace MvcForum.Data
         {
             return new MvcForumContext();
         }
+
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

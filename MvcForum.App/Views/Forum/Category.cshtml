@@ -1,0 +1,38 @@
+﻿@model System.Collections.Generic.IEnumerable<MvcForum.Models.EntityModels.Post>
+@{
+    ViewBag.Title = $"Category Posts";
+}
+<h2>Posts</h2>
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+        <a href="/Posts/Details/@item.Id">
+            <div class="panel panel-default">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <h4>@item.Topic</h4>
+                            <h6>By: @item.Author.UserName</h6>
+                        </td>
+                        <td class="text-right text-nowrap">
+                            @if (User.Identity.Name == item.Author.UserName || User.IsInRole("Administrator"))
+                            {
+                                <span class="btn-group clearfix">
+                                    @Html.ActionLink("Delete", "Delete", "Posts", new { @id = item.Id }, new { @class = "btn btn-danger pull-right" })
+                                    @Html.ActionLink("Edit", "Edit", "Posts", new { @id = item.Id }, new { @class = "btn btn-primary pull-right" })
+                                </span>
+                            }
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </a>
+    }
+</div>
+
+
+

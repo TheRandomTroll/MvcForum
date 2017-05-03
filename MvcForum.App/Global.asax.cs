@@ -8,6 +8,12 @@ using System.Web.Routing;
 
 namespace MvcForum.App
 {
+    using AutoMapper;
+
+    using MvcForum.Models.BindingModels;
+    using MvcForum.Models.EntityModels;
+    using MvcForum.Models.ViewModels;
+
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -16,6 +22,14 @@ namespace MvcForum.App
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Mapper.Initialize(
+                config =>
+                    {
+                        config.CreateMap<Category, CategoryVM>();
+                        config.CreateMap<CategoryBM, Category>();
+                        config.CreateMap<Post, PostVM>();
+                        config.CreateMap<NewPostBM, Post>();
+                    });
         }
     }
 }
