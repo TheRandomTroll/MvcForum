@@ -11,6 +11,7 @@ namespace MvcForum.Data
     using Microsoft.AspNet.Identity.EntityFramework;
 
     using MvcForum.Models.EntityModels;
+    using MvcForum.Models.EntityModels.Admin;
 
     public class MvcForumContext : IdentityDbContext<User>
     {
@@ -27,5 +28,7 @@ namespace MvcForum.Data
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+
+        public virtual DbSet<Log> Logs { get; set; }
     }
 }

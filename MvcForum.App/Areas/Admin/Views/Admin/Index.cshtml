@@ -1,0 +1,23 @@
+﻿@{ViewBag.Title = "Admin Menu";}
+
+<div class="jumbotron">
+    <h1>Admin Panel</h1>
+    <p>This is the admin panel - here, you can see what users have been up to, What reports have been sent, and it gives you an opportunity to ban any users who have been misbehaving.</p>
+    
+</div>
+
+<div class="col-md-4">
+    <h2>
+        Log
+    </h2>
+    <p>
+        See what the users have been up to.
+    </p>
+    @Html.ActionLink(HttpUtility.HtmlEncode("Go \\&raquo;"), "Index", "Log", new { area = "Admin" }, null)
+</div>
+<div class="col-md-4">
+    Test2 
+</div>
+<div class="col-md-4">
+    Test3
+</div>

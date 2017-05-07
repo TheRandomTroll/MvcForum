@@ -84,5 +84,8 @@ E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.Owin.Security.Twit
 E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Visual Studio Projects\MvcForum\MvcForum.App\obj\Debug\MvcForum.App.dll
 E:\Visual Studio Projects\MvcForum\MvcForum.App\obj\Debug\MvcForum.App.pdb
-E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\AutoMapper.dll
 E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\AutoMapper.xml
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.dll
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.Mvc.dll
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.xml
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.Mvc.xml

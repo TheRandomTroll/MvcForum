@@ -94,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\CategoryBM.cs" />
+    <Compile Include="BindingModels\CommentBM.cs" />
     <Compile Include="BindingModels\NewPostBM.cs" />
+    <Compile Include="EntityModels\Admin\Log.cs" />
     <Compile Include="EntityModels\Category.cs" />
     <Compile Include="EntityModels\Comment.cs" />
     <Compile Include="EntityModels\Post.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="ViewModels\Manage\IndexViewModel.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\PostCommentVM.cs" />
     <Compile Include="ViewModels\PostVM.cs" />
   </ItemGroup>
   <ItemGroup />

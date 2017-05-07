@@ -1,9 +1,43 @@
-﻿@model MvcForum.Models.ViewModels.PostVM
+﻿@model MvcForum.Models.EntityModels.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Post";
 }
 
-@Html.ActionLink("« Back to List", "Index", "Forum", null, new {@class = "btn btn-danger"})
+<h1>
+    @Model.Topic
+</h1>
+<h3>
+    Author: @Model.Author.UserName Posted On: @Model.CreatedOn Category: @Model.Category.Name
+</h3>
+<p>
+    @Model.Content
+</p>
+
+<hr/>
+<div>
+    <h2></h2>
+    @foreach (var item in Model.Comments)
+    {
+        <div class="panel panel-default">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td>
+                        <p>@item.Content</p>
+                        <h6>By: @item.Author.UserName Posted On: @item.CreatedOn</h6>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+<hr/>
+<h3>Got an opinion?</h3>
+@Html.ActionLink("Write Your Comment", "Create", "Comments", new { id = Model.Id })
+<div>
+    @Html.ActionLink("« Back to Posts", "Category", "Forum", new { id = Model.Category.Id }, new { @class = "btn btn-danger" })
+</div>
 
 

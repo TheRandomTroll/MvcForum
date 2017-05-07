@@ -1,14 +1,18 @@
 ﻿using Microsoft.Owin;
-using Owin;
 
-[assembly: OwinStartupAttribute(typeof(MvcForum.App.Startup))]
+using MvcForum.App;
+
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace MvcForum.App
 {
+    using Owin;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
         }
     }
 }

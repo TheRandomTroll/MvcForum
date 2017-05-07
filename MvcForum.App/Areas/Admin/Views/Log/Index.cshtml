@@ -1,0 +1,20 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<MvcForum.Models.EntityModels.Admin.Log>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-primary">
+        <h3 class="panel-body"><strong>@item.Username</strong> @item.Action on @item.LoggedAt</h3>
+    </div>
+
+}
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

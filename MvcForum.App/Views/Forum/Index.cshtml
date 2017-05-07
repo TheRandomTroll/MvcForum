@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<MvcForum.Models.EntityModels.Category>
+﻿@model IEnumerable<MvcForum.Models.EntityModels.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -13,12 +12,13 @@
     {
         @Html.ActionLink("Create New Category", "Create", null, new { @class = "btn btn-success" })
     }
+
     @Html.ActionLink("Create New Post", "Create", "Posts", null, new { @class = "btn btn-primary" })
-    <br />
+    <br/>
 }
 <div class="list-group">
     @foreach (var item in Model)
     {
-        @Html.ActionLink($"{@item.Name}            ({@item.Count} posts)", "Category", "Forum", new { id = @item.Id }, new { @class = "list-group-item" })
+        @Html.ActionLink($"{item.Name}            ({item.Count} posts)", "Category", "Forum", new { id = item.Id }, new { @class = "list-group-item" })
     }
 </div>

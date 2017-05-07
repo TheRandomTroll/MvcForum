@@ -1,4 +1,5 @@
-﻿@model System.Collections.Generic.IEnumerable<MvcForum.Models.EntityModels.Post>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<MvcForum.Models.EntityModels.Post>
 @{
     ViewBag.Title = $"Category Posts";
 }
@@ -20,18 +21,19 @@
                             @if (User.Identity.Name == item.Author.UserName || User.IsInRole("Administrator"))
                             {
                                 <span class="btn-group clearfix">
-                                    @Html.ActionLink("Delete", "Delete", "Posts", new { @id = item.Id }, new { @class = "btn btn-danger pull-right" })
-                                    @Html.ActionLink("Edit", "Edit", "Posts", new { @id = item.Id }, new { @class = "btn btn-primary pull-right" })
+                                    @Html.ActionLink("Delete", "Delete", "Posts", new { id = item.Id }, new { @class = "btn btn-danger pull-right" })
                                 </span>
                             }
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
         </a>
     }
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+    @Html.ActionLink("« Back to List", "Index", "Forum", null, new { @class = "btn btn-danger" })
 </div>
 
 

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace MvcForum.App
+﻿namespace MvcForum.App
 {
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+
     using AutoMapper;
 
     using MvcForum.Models.BindingModels;
     using MvcForum.Models.EntityModels;
     using MvcForum.Models.ViewModels;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -29,6 +26,7 @@ namespace MvcForum.App
                         config.CreateMap<CategoryBM, Category>();
                         config.CreateMap<Post, PostVM>();
                         config.CreateMap<NewPostBM, Post>();
+                        config.CreateMap<CommentBM, Comment>();
                     });
         }
     }

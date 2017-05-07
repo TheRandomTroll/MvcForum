@@ -1,47 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MvcForum.Data;
-using MvcForum.Models.EntityModels;
-
-namespace MvcForum.App.Controllers
+﻿namespace MvcForum.App.Controllers
 {
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
 
-    using Microsoft.AspNet.Identity;
+    using AutoMapper;
+
     using Microsoft.AspNet.Identity.Owin;
 
+    using MvcForum.App.Attributes;
+    using MvcForum.Data;
     using MvcForum.Models.BindingModels;
-    using MvcForum.Models.ViewModels;
+    using MvcForum.Models.EntityModels;
 
-    [RoutePrefix("")]
+    using PagedList;
+    
     public class ForumController : Controller
     {
         private UserManager _userManager;
-        private MvcForumContext db = new MvcForumContext();
+
+        private readonly MvcForumContext db = new MvcForumContext();
+
         public UserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
+                return this._userManager ?? this.HttpContext.GetOwinContext().GetUserManager<UserManager>();
             }
+
             private set
             {
-                _userManager = value;
+                this._userManager = value;
             }
         }
-        public ActionResult Index()
+
+        [Route("/Forum/Category/{id:int}?page={page:int?}")]
+        public ActionResult Category(int id, int? page)
         {
-            List<Category> vms = this.db.Categories.ToList();
-            return this.View(vms);
+            var posts = this.db.Posts.Where(x => x.Category.Id == id).ToList();
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+            return this.View(posts.ToPagedList(pageNumber, pageSize));
         }
 
+        [AdminOnly]
         public ActionResult Create()
         {
             return this.View();
@@ -49,30 +53,31 @@ namespace MvcForum.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name")]CategoryBM category)
+        public ActionResult Create([Bind(Include = "Name")] CategoryBM category)
         {
-            if (this.User.IsInRole("Administrator"))
-            {
-                if (ModelState.IsValid)
+                if (this.ModelState.IsValid)
                 {
-                    db.Categories.Add(Mapper.Map<CategoryBM, Category>(category));
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    this.db.Categories.Add(Mapper.Map<CategoryBM, Category>(category));
+                    this.db.SaveChanges();
+                    return this.RedirectToAction("Index");
                 }
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+
+            return this.View();
         }
-        public ActionResult Category(int id)
+
+        public ActionResult Index()
         {
-            var posts = this.db.Posts.Where(x => x.Category.Id == id);
-            return this.View(posts);
+            List<Category> vms = this.db.Categories.ToList();
+            return this.View(vms);
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                this.db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
