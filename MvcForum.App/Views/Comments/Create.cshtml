@@ -1,7 +1,7 @@
 ﻿@model MvcForum.Models.BindingModels.CommentBM
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Comment";
 }
 
 <h2>Write your comment</h2>
@@ -15,7 +15,8 @@
         <hr/>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Hidden("PostId", Model.PostId)
+            @Html.Label("Comment", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = "10" })
                 @Html.ValidationMessageFor(model => model.Content, string.Empty, new { @class = "text-danger" })

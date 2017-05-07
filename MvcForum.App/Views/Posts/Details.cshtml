@@ -4,38 +4,55 @@
     ViewBag.Title = "Post";
 }
 
-<h1>
+<h2>
     @Model.Topic
-</h1>
-<h3>
-    Author: @Model.Author.UserName Posted On: @Model.CreatedOn Category: @Model.Category.Name
-</h3>
+</h2>
+<h5>
+    Category: @Model.Category.Name
+</h5>
+<br />
+<h4>@Model.Author.UserName</h4>
+<h5>Posted On: @Model.CreatedOn </h5>
+<br />
 <p>
     @Model.Content
 </p>
 
-<hr/>
+<hr />
 <div>
-    <h2></h2>
+    <h2>Comments</h2>
+    <br />
     @foreach (var item in Model.Comments)
     {
         <div class="panel panel-default">
             <table class="table table-hover">
                 <tbody>
-                <tr>
-                    <td>
-                        <p>@item.Content</p>
-                        <h6>By: @item.Author.UserName Posted On: @item.CreatedOn</h6>
+                    <tr>
+                        <td>
+                            <p>@item.Content</p>
+                            <h6>By: @item.Author.UserName</h6>
+                            <h6>Posted On: @item.CreatedOn</h6>
+                        </td>
+                    </tr>
+                    @if (User.Identity.Name == item.Author.UserName || User.IsInRole("Administrator"))
+                    {
+
+                    <td class="text-right text-nowrap">
+                        <span class="btn-group clearfix">
+                            @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, new { @class = "btn btn-danger pull-right" })
+                        </span>
+
                     </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                    }
+                    </tbody>
+                </table>
+            </div>
     }
 </div>
-<hr/>
+<hr />
 <h3>Got an opinion?</h3>
-@Html.ActionLink("Write Your Comment", "Create", "Comments", new { id = Model.Id })
+@Html.ActionLink("Write Your Comment", "Create", "Comments", new { id = Model.Id }, null)
+<br />
 <div>
     @Html.ActionLink("« Back to Posts", "Category", "Forum", new { id = Model.Category.Id }, new { @class = "btn btn-danger" })
 </div>

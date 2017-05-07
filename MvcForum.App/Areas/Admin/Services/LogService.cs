@@ -22,5 +22,11 @@
         {
             return this.db.Logs.ToList().OrderByDescending(x => x.LoggedAt);
         }
+
+        public void ClearLog()
+        {
+            this.db.Logs.RemoveRange(this.db.Logs);
+            this.db.SaveChanges();
+        }
     }
 }

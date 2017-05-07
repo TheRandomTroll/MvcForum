@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace MvcForum.Models.BindingModels
 {
+    using MvcForum.Models.EntityModels;
+
     public class CommentBM
     {
         public int PostId { get; set; }

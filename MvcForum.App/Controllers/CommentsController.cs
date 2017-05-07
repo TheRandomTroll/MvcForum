@@ -6,6 +6,9 @@
     using System.Net;
     using System.Web.Mvc;
 
+    using AutoMapper;
+
+    using MvcForum.App.Areas.Admin.Services;
     using MvcForum.Data;
     using MvcForum.Models.BindingModels;
     using MvcForum.Models.EntityModels;
@@ -13,6 +16,7 @@
     public class CommentsController : Controller
     {
         private readonly MvcForumContext db = new MvcForumContext();
+        private LogService service = new LogService();
 
         public ActionResult Create(int? id)
         {
@@ -26,8 +30,11 @@
             {
                 return this.HttpNotFound();
             }
-            CommentBM comment = new CommentBM();
-            return this.View(post);
+            CommentBM comment = new CommentBM
+                                    {
+                                        PostId = post.Id
+                                    };
+            return this.View(comment);
         }
 
         // POST: Comments/Create
@@ -49,6 +56,7 @@
                                           CreatedOn = DateTime.Now
                                       };
                 this.db.Comments.Add(comment);
+                this.service.AddLog("Wrote a comment", User.Identity.Name);
                 this.db.SaveChanges();
                 return this.RedirectToAction("Details", "Posts", new { id = commentBm.PostId });
             }
@@ -79,10 +87,13 @@
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = this.db.Comments.Find(id);
+            int postId = comment.PostId;
             this.db.Comments.Remove(comment);
+            this.service.AddLog("Deleted a comment", User.Identity.Name);
+
             this.db.SaveChanges();
 
-            return this.RedirectToAction("Index");
+            return this.RedirectToAction("Details", "Posts", new {@id = postId});
         }
 
         // GET: Comments/Edit/5
@@ -94,12 +105,13 @@
             }
 
             Comment comment = this.db.Comments.Find(id);
+            var commentBm = Mapper.Map<Comment, CommentBM>(comment);
             if (comment == null)
             {
                 return this.HttpNotFound();
             }
 
-            return this.View(comment);
+            return this.View(commentBm);
         }
 
         // POST: Comments/Edit/5
@@ -107,17 +119,16 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedOn,Content,AuthorId,PostId")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Content,PostId")] Comment comment)
         {
             if (this.ModelState.IsValid)
             {
-                this.db.Entry(comment).State = EntityState.Modified;
-                this.db.SaveChanges();
-                return this.RedirectToAction("Index");
-            }
+                this.db.Entry(comment).CurrentValues["Content"] = comment.Content;
+                this.service.AddLog("Editted a comment", User.Identity.Name);
 
-            this.ViewBag.AuthorId = new SelectList(this.db.Users, "Id", "Email", comment.AuthorId);
-            this.ViewBag.PostId = new SelectList(this.db.Posts, "Id", "Topic", comment.PostId);
+                this.db.SaveChanges();
+                return this.RedirectToAction("Details", "Posts", new {@id = comment.PostId});
+            }
             return this.View(comment);
         }
 

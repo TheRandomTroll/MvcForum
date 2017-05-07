@@ -9,6 +9,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
+    using MvcForum.App.Areas.Admin.Services;
     using MvcForum.Models.EntityModels;
     using MvcForum.Models.ViewModels.Account;
 
@@ -18,6 +19,7 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
+        private LogService service = new LogService();
         private ApplicationSignInManager _signInManager;
 
         private UserManager _userManager;
@@ -241,6 +243,7 @@
             switch (result)
             {
                 case SignInStatus.Success:
+                    this.service.AddLog("Logged in", model.Username);
                     return this.RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
@@ -258,6 +261,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            this.service.AddLog("Logged off", AuthenticationManager.User.Identity.Name);
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Forum");
         }
@@ -282,6 +286,7 @@
                 if (result.Succeeded)
                 {
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    this.service.AddLog("Registered", model.Username);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

@@ -2,12 +2,12 @@
 @model PagedList.IPagedList<MvcForum.Models.EntityModels.Admin.Log>
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Log";
 }
 
-<h2>View</h2>
+<h2>Log</h2>
 
-
+@Html.ActionLink("Clear Log", "Clear", null, new { @class = "btn btn-danger" })
 @foreach (var item in Model)
 {
     <div class="panel panel-primary">

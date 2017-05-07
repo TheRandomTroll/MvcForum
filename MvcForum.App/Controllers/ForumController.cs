@@ -40,7 +40,7 @@
         public ActionResult Category(int id, int? page)
         {
             var posts = this.db.Posts.Where(x => x.Category.Id == id).ToList();
-            int pageSize = 10;
+            int pageSize = 5;
             int pageNumber = page ?? 1;
             return this.View(posts.ToPagedList(pageNumber, pageSize));
         }

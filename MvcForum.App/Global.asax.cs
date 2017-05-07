@@ -26,7 +26,8 @@
                         config.CreateMap<CategoryBM, Category>();
                         config.CreateMap<Post, PostVM>();
                         config.CreateMap<NewPostBM, Post>();
-                        config.CreateMap<CommentBM, Comment>();
+                        config.CreateMap<Comment, CommentBM>();
+
                     });
         }
     }
