@@ -37,6 +37,7 @@
         }
 
         [Route("/Forum/Category/{id:int}?page={page:int?}")]
+        [AdminOnly]
         public ActionResult Category(int id, int? page)
         {
             var posts = this.db.Posts.Where(x => x.Category.Id == id).ToList();
@@ -53,6 +54,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminOnly]
         public ActionResult Create([Bind(Include = "Name")] CategoryBM category)
         {
                 if (this.ModelState.IsValid)

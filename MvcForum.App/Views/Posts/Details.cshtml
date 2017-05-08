@@ -17,7 +17,11 @@
 <p>
     @Model.Content
 </p>
-
+@if (!string.IsNullOrEmpty(Model.YoutubeUrl))
+{
+    <h6><i>Video linked</i></h6>
+    <iframe src="@Model.YoutubeUrl"></iframe>
+}
 <hr />
 <div>
     <h2>Comments</h2>
@@ -30,19 +34,25 @@
                     <tr>
                         <td>
                             <p>@item.Content</p>
+                            @if (!string.IsNullOrEmpty(item.YoutubeUrl))
+                            {
+                                <h6><i>Video linked</i></h6>
+                                <iframe src="@Model.YoutubeUrl"></iframe>
+                            }
                             <h6>By: @item.Author.UserName</h6>
                             <h6>Posted On: @item.CreatedOn</h6>
                         </td>
                     </tr>
                     @if (User.Identity.Name == item.Author.UserName || User.IsInRole("Administrator"))
                     {
+                        <tr>
+                            <td class="text-right text-nowrap">
+                                <span class="btn-group clearfix">
+                                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, new { @class = "btn btn-danger pull-right" })
+                                </span>
 
-                    <td class="text-right text-nowrap">
-                        <span class="btn-group clearfix">
-                            @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, new { @class = "btn btn-danger pull-right" })
-                        </span>
-
-                    </td>
+                            </td>
+                        </tr>
                     }
                     </tbody>
                 </table>
@@ -51,7 +61,7 @@
 </div>
 <hr />
 <h3>Got an opinion?</h3>
-@Html.ActionLink("Write Your Comment", "Create", "Comments", new { id = Model.Id }, null)
+@Html.ActionLink("Write Your Comment!", "Create", "Comments", new { id = Model.Id }, new {@class = "btn btn-primary"})
 <br />
 <div>
     @Html.ActionLink("« Back to Posts", "Category", "Forum", new { id = Model.Category.Id }, new { @class = "btn btn-danger" })

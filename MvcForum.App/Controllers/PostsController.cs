@@ -25,7 +25,8 @@
         // POST: Posts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Topic,Content,Category")] NewPostBM postBm)
+        [Authorize]
+        public ActionResult Create([Bind(Include = "Topic,Content,Category,YoutubeUrl")] NewPostBM postBm)
         {
             if (this.ModelState.IsValid)
             {
@@ -36,8 +37,11 @@
                                     Content = postBm.Content,
                                     CreatedOn = DateTime.Now,
                                     Author = this.db.Users.First(x => x.UserName == this.User.Identity.Name),
-                                    Category = cat
-                                };
+                                    Category = cat,
+
+                    YoutubeUrl = "https://youtube.com/embed/"
+                                          + postBm.YoutubeUrl.Substring(postBm.YoutubeUrl.Length - 11)
+                };
                 this.db.Posts.Add(post);
                 this.db.SaveChanges();
                 this.logService.AddLog("Wrote a post", this.User.Identity.Name);
@@ -48,6 +52,7 @@
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

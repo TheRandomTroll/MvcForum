@@ -12,6 +12,7 @@ namespace MvcForum.App
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
             this.ConfigureAuth(app);
         }
     }

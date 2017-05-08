@@ -21,13 +21,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Log", "Index", "Log", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Reports", "Index", "Reports", new { area = "Chat" }, null)</li>
-                    <li>@Html.ActionLink("Review/Ban User", "Index", "Ban", new {area = "Admin"}, null)</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                <li>@Html.ActionLink("Log", "Index", "Log", new { area = "Admin" }, null)</li>
+                <li>@Html.ActionLink("Reports", "Index", "Reports", new { area = "Admin" }, null)</li>
+                <li>@Html.ActionLink("Review/Ban User", "Index", "Ban", new {area = "Admin"}, null)</li>
             </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
 </div>

@@ -17,12 +17,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("MVC Forum", "Index", "Forum", new { area = string.Empty }, new { @class = "navbar-brand" })
+            @Html.ActionLink("MVC Forum", "Index", "Home", new { area = string.Empty }, new { @class = "navbar-brand" })
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Forum")</li>
-                <li>@Html.ActionLink("Chat", "Index", "Chat",new { area = "Chat"})</li>
+                <li>@Html.ActionLink("Forum", "Index", "Forum")</li>
+                <li>@Html.ActionLink("Chat", "Index", "Chat", new { area = "Chat"}, null)</li>
                 @if (User.IsInRole("Administrator"))
                 {
                     <li>@Html.ActionLink("Admin Menu", "Index", "Admin")</li>

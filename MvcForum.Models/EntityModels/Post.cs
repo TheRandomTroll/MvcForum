@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvcForum.Models.EntityModels
 {
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class Post
@@ -15,8 +16,19 @@ namespace MvcForum.Models.EntityModels
             this.Comments = new List<Comment>();
         }
         public int Id { get; set; }
+
+        [Required]
         public string Topic { get; set; }
+        [Required]
+
         public string Content { get; set; }
+
+        [MinLength(11)]
+        [MaxLength(11)]
+        public string YoutubeUrl { get; set; }
+
+        [Required]
+
         public virtual Category Category { get; set; }
 
         [ForeignKey("Category")]

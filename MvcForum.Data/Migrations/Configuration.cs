@@ -87,8 +87,9 @@ namespace MvcForum.Data.Migrations
                             Topic = "My Personal Story",
                             Content =
                                 "So it all just started when I was 5 years old. Shrek was my favorite movie.",
-                            CreatedOn = DateTime.UtcNow
-                        });
+                            CreatedOn = DateTime.UtcNow,
+                            YoutubeUrl = "TmUs5qVZJEQ"
+                    });
             }
         }
     }

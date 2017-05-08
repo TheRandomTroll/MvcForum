@@ -1,0 +1,26 @@
+﻿@model System.Collections.Generic.IEnumerable<MvcForum.Models.EntityModels.Post>
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="jumbotron">
+    <h1>Welcome to my ASP.NET Project</h1>
+</div>
+<div class="col-md-6">
+    <h1>
+        Forum
+    </h1>
+    <p>
+        Do you have an interesting idea? Or a problem? Share it with the rest of the community!
+    </p>
+    @Html.ActionLink("Go to Forum", "Index", "Forum", null, new { @class = "btn btn-primary" })
+</div>
+<div class="col-md-6">
+    <h1>
+        Chat
+    </h1>
+    <p>
+        Don't want to wait countless days for a reply on your post? Or you simply wanna chat with friends? Come and join the chat!
+    </p>
+    @Html.ActionLink("Go to Chat", "Index", "Chat", null, new { @class = "btn btn-primary" })
+</div>

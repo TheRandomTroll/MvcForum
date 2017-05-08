@@ -89,3 +89,7 @@ E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.dll
 E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.Mvc.dll
 E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.xml
 E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\PagedList.Mvc.xml
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Visual Studio Projects\MvcForum\MvcForum.App\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

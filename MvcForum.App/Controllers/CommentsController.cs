@@ -8,11 +8,14 @@
 
     using AutoMapper;
 
+    using Microsoft.AspNet.SignalR.Hubs;
+
     using MvcForum.App.Areas.Admin.Services;
     using MvcForum.Data;
     using MvcForum.Models.BindingModels;
     using MvcForum.Models.EntityModels;
 
+    [Authorize]
     public class CommentsController : Controller
     {
         private readonly MvcForumContext db = new MvcForumContext();
@@ -42,7 +45,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content, PostId")] CommentBM commentBm)
+        public ActionResult Create([Bind(Include = "Content, PostId, YoutubeUrl")] CommentBM commentBm)
         {
             if (this.ModelState.IsValid)
             {
@@ -53,7 +56,9 @@
                                           Author =
                                               this.db.Users.First(x => x.UserName == this.User.Identity.Name),
                                           Content = commentBm.Content,
-                                          CreatedOn = DateTime.Now
+                                          CreatedOn = DateTime.Now,
+                                          YoutubeUrl = "https://youtube.com/embed/" 
+                                          + commentBm.YoutubeUrl.Substring(commentBm.YoutubeUrl.Length - 11)
                                       };
                 this.db.Comments.Add(comment);
                 this.service.AddLog("Wrote a comment", User.Identity.Name);
@@ -95,43 +100,6 @@
 
             return this.RedirectToAction("Details", "Posts", new {@id = postId});
         }
-
-        // GET: Comments/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Comment comment = this.db.Comments.Find(id);
-            var commentBm = Mapper.Map<Comment, CommentBM>(comment);
-            if (comment == null)
-            {
-                return this.HttpNotFound();
-            }
-
-            return this.View(commentBm);
-        }
-
-        // POST: Comments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Content,PostId")] Comment comment)
-        {
-            if (this.ModelState.IsValid)
-            {
-                this.db.Entry(comment).CurrentValues["Content"] = comment.Content;
-                this.service.AddLog("Editted a comment", User.Identity.Name);
-
-                this.db.SaveChanges();
-                return this.RedirectToAction("Details", "Posts", new {@id = comment.PostId});
-            }
-            return this.View(comment);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
