@@ -6,11 +6,9 @@ using System.Web.Mvc;
 
 namespace MvcForum.App.Controllers
 {
-    using MvcForum.Data;
-
-    public class HomeController : Controller
+    public class ErrorsController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Banned()
         {
             return View();
         }

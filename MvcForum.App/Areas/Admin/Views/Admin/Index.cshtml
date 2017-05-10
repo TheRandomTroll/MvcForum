@@ -13,11 +13,23 @@
     <p>
         See what the users have been up to.
     </p>
-    @Html.ActionLink(HttpUtility.HtmlEncode("Go \\&raquo;"), "Index", "Log", new { area = "Admin" }, null)
+    @Html.ActionLink("Go", "Index", "Log", new { area = "Admin" }, null)
 </div>
 <div class="col-md-4">
-    Test2 
+    <h2>
+        Reports
+    </h2>
+    <p>
+        Somebody has been complaining? Review it and take action!
+    </p>
+    @Html.ActionLink("Go", "Index", "Reports", new { area = "Admin" }, null)
 </div>
 <div class="col-md-4">
-    Test3
+    <h2>
+        Log
+    </h2>
+    <p>
+        An user has been misbehaving? Punish them!
+    </p>
+    @Html.ActionLink("Go", "Index", "Ban", new { area = "Admin" }, null)
 </div>

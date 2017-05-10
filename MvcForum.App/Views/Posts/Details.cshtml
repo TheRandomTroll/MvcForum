@@ -20,7 +20,8 @@
 @if (!string.IsNullOrEmpty(Model.YoutubeUrl))
 {
     <h6><i>Video linked</i></h6>
-    <iframe src="@Model.YoutubeUrl"></iframe>
+    <iframe width="560" height="315" src=@Model.YoutubeUrl frameborder="0" allowfullscreen></iframe>
+
 }
 <hr />
 <div>
@@ -37,7 +38,7 @@
                             @if (!string.IsNullOrEmpty(item.YoutubeUrl))
                             {
                                 <h6><i>Video linked</i></h6>
-                                <iframe src="@Model.YoutubeUrl"></iframe>
+                                <iframe width="560" height="315" src=@item.YoutubeUrl frameborder="0" allowfullscreen></iframe>
                             }
                             <h6>By: @item.Author.UserName</h6>
                             <h6>Posted On: @item.CreatedOn</h6>

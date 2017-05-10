@@ -249,7 +249,6 @@
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
-                case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return this.View(model);

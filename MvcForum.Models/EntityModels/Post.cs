@@ -22,9 +22,6 @@ namespace MvcForum.Models.EntityModels
         [Required]
 
         public string Content { get; set; }
-
-        [MinLength(11)]
-        [MaxLength(11)]
         public string YoutubeUrl { get; set; }
 
         [Required]

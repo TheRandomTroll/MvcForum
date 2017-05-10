@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity
+@using PagedList.Mvc
+@model PagedList.IPagedList<MvcForum.Models.EntityModels.User>
+@{
+    ViewBag.Title = "Ban Users";
+}
+
+<h2>Ban Users</h2>
+@foreach (var item in Model)
+{
+    if (item.Id == User.Identity.GetUserId())
+     {
+         continue;
+     }
+    <div class="panel panel-default">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>User: @item.UserName</p>
+                    </td>
+                </tr>
+                @if (!item.Banned)
+                {
+                    <tr>
+                        <td class="text-right text-nowrap">
+                            <span class="btn-group clearfix">
+                                @Html.ActionLink("Ban", "Ban", new { id = item.Id }, new { @class = "btn btn-danger pull-right" })
+                            </span>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-right text-nowrap">
+                            <span class="btn-group clearfix">
+                                @Html.ActionLink("Unban", "Unban", new { id = item.Id }, new { @class = "btn btn-success pull-right" })
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+

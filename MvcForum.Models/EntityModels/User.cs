@@ -16,6 +16,9 @@ namespace MvcForum.Models.EntityModels
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+
         }
+
+        public bool Banned { get; set; }
     }
 }

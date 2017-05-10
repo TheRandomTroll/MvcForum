@@ -3,13 +3,15 @@
 }
 
 <h2>Clear Log</h2>
+
+
+<p>Are you sure you want to clear the log?</p>
 @using (Html.BeginForm())
 {
-    <p>Are you sure you want to clear the log?</p>
     @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" />  |
         @Html.ActionLink("Back to Log", "Index", "Log", new { area = "Admin" }, new { @class = "btn btn-primary" })
     </div>
 }
